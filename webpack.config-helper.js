@@ -69,7 +69,7 @@ module.exports = (options) => {
       loaders: ['style', 'css', 'sass']
     }, {
       test: /\.js$/,
-      loader: 'eslint',
+      loader: 'eslint?{rules:{semi:0}}',
       exclude: /node_modules/
     });
 
