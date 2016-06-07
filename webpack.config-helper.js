@@ -37,6 +37,9 @@ module.exports = (options) => {
         query: {
           presets: ['es2015']
         }
+      }, {
+        test: /\.(gif|png|jpg|pdf)$/,
+        loader: 'file?name=[path][name].[ext]?[hash]'
       }]
     }
   };
