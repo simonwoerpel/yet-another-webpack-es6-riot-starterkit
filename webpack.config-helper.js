@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
 const Path = require('path')
 const Webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ExtractSASS = new ExtractTextPlugin('styles/bundle.css');
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractSASS = new ExtractTextPlugin('styles/bundle.css')
 
 module.exports = (options) => {
 
@@ -37,15 +37,12 @@ module.exports = (options) => {
         query: {
           presets: ['es2015']
         }
-      }, {
-        test: /\.(gif|png|jpg|pdf)$/,
-        loader: 'file?name=[path][name].[ext]?[hash]'
       }]
     }
-  };
+  }
 
   if (options.isProduction) {
-    webpackConfig.entry = ['./src/scripts/index'];
+    webpackConfig.entry = ['./src/scripts/index']
 
     webpackConfig.plugins.push(
       new Webpack.optimize.OccurenceOrderPlugin(),
@@ -55,17 +52,17 @@ module.exports = (options) => {
         }
       }),
       ExtractSASS
-    );
+    )
 
     webpackConfig.module.loaders.push({
       test: /\.scss$/i,
       loader: ExtractSASS.extract(['css', 'sass'])
-    });
+    })
 
   } else {
     webpackConfig.plugins.push(
       new Webpack.HotModuleReplacementPlugin()
-    );
+    )
 
     webpackConfig.module.loaders.push({
       test: /\.scss$/i,
@@ -74,7 +71,7 @@ module.exports = (options) => {
       test: /\.js$/,
       loader: 'eslint?{rules:{semi:0}}',
       exclude: /node_modules/
-    });
+    })
 
     webpackConfig.devServer = {
       contentBase: './dist',
@@ -82,9 +79,9 @@ module.exports = (options) => {
       port: options.port,
       inline: true,
       progress: true
-    };
+    }
   }
 
-  return webpackConfig;
+  return webpackConfig
 
 }
