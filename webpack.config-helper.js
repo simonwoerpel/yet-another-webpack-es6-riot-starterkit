@@ -27,11 +27,23 @@ module.exports = (options) => {
       }),
       new HtmlWebpackPlugin({
         template: './src/index.html'
+      }),
+      new Webpack.ProvidePlugin({
+        riot: 'riot'
       })
     ],
     module: {
+      preLoaders: [{
+        test: /\.tag$/,
+        exclude: /node_modules/,
+        include: /src/,
+        loader: 'riotjs-loader',
+        query: {
+          type: 'none'
+        }
+      }],
       loaders: [{
-        test: /\.js$/,
+        test: /\.js$|\.tag$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel',
         query: {

@@ -47,6 +47,8 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.17.0",
     "node-sass": "^4.0.0",
+    "riot": "^3.4.4",
+    "riotjs-loader": "^4.0.0",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
