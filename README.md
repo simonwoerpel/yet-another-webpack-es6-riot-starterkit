@@ -2,7 +2,7 @@
 
 A lightweight foundation for your next webpack based frontend project.
 
-based on  [this startkit](git@github.com:simonwoerpel/yet-another-webpack-es6-riot-starterkit.git) extended with [riotjs](http://riotjs.com)
+based on  [this startkit](https://github.com/wbkd/yet-another-webpack-es6-starterkit) extended with [riotjs](http://riotjs.com)
 
 ### Installation
 
