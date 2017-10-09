@@ -1,22 +1,21 @@
-'use strict'
+'use strict';
 
-const Path = require('path')
-const Webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const ExtractSASS = new ExtractTextPlugin('styles/bundle.css')
+const Path = require('path');
+const Webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractSASS = new ExtractTextPlugin('styles/bundle.css');
 
 module.exports = (options) => {
+  const dest = Path.join(__dirname, 'dist');
 
   let webpackConfig = {
     devtool: options.devtool,
     entry: [
-      `webpack-dev-server/client?http://localhost:${options.port}`,
-      'webpack/hot/dev-server',
       './src/scripts/index'
     ],
     output: {
-      path: Path.join(__dirname, 'dist'),
+      path: dest,
       filename: 'bundle.js'
     },
     plugins: [
@@ -33,67 +32,76 @@ module.exports = (options) => {
       })
     ],
     module: {
-      preLoaders: [{
+      rules: [{
         test: /\.tag$/,
-        exclude: /node_modules/,
+        enforce: 'pre',
+        exclude: /(node_modules|bower_components)/,
         include: /src/,
-        loader: 'riotjs-loader',
-        query: {
-          type: 'none'
+        use: {
+          loader: 'riotjs-loader',
+          options: {
+            type: 'none'
+          }
         }
-      }],
-      loaders: [{
+      }, {
         test: /\.js$|\.tag$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015']
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015']
+          }
         }
       }]
     }
-  }
+    };
 
   if (options.isProduction) {
-    webpackConfig.entry = ['./src/scripts/index']
+    webpackConfig.entry = ['./src/scripts/index'];
 
     webpackConfig.plugins.push(
-      new Webpack.optimize.OccurenceOrderPlugin(),
       new Webpack.optimize.UglifyJsPlugin({
         compressor: {
           warnings: false
         }
       }),
       ExtractSASS
-    )
+    );
 
-    webpackConfig.module.loaders.push({
+    webpackConfig.module.rules.push({
       test: /\.scss$/i,
-      loader: ExtractSASS.extract(['css', 'sass'])
-    })
+      use: ExtractSASS.extract(['css-loader', 'sass-loader'])
+    });
 
   } else {
     webpackConfig.plugins.push(
       new Webpack.HotModuleReplacementPlugin()
-    )
+    );
 
-    webpackConfig.module.loaders.push({
+    webpackConfig.module.rules.push({
       test: /\.scss$/i,
-      loaders: ['style', 'css', 'sass']
+      use: ['style-loader', 'css-loader', 'sass-loader']
     }, {
       test: /\.js$/,
-      loader: 'eslint?{rules:{semi:0}}',
+      use: {
+        loader: 'eslint-loader',
+        options: {
+          rules: {
+            semi: 0
+          }
+        }
+      },
       exclude: /node_modules/
-    })
+    });
 
     webpackConfig.devServer = {
-      contentBase: './dist',
+      contentBase: dest,
       hot: true,
       port: options.port,
-      inline: true,
-      progress: true
-    }
+      inline: true
+    };
   }
 
-  return webpackConfig
+  return webpackConfig;
 
-}
+};
