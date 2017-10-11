@@ -70,7 +70,12 @@ module.exports = (options) => {
 
     webpackConfig.module.rules.push({
       test: /\.scss$/i,
-      use: ExtractSASS.extract(['css-loader', 'sass-loader'])
+      use: ExtractSASS.extract([{
+       loader: 'css-loader',
+       options: {
+        minimize: true
+       }
+      }, 'sass-loader'])
     });
 
   } else {
