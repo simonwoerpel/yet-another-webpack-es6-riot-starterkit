@@ -1,22 +1,23 @@
-'use strict';
+'use strict'
 
-const Path = require('path');
-const Webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ExtractSASS = new ExtractTextPlugin('styles/bundle.css');
+const Path = require('path')
+const Webpack = require('webpack')
+const BundleTracker = require('webpack-bundle-tracker')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const ExtractSASS = new ExtractTextPlugin('bundle-[hash].css')
 
 module.exports = (options) => {
-  const dest = Path.join(__dirname, 'dist');
+  const dest = Path.join(__dirname, 'docs')
 
   let webpackConfig = {
     devtool: options.devtool,
     entry: [
-      './src/scripts/index'
+      './src/index'
     ],
     output: {
       path: dest,
-      filename: 'bundle.js'
+      filename: 'bundle-[hash].js'
     },
     plugins: [
       new Webpack.DefinePlugin({
@@ -27,6 +28,7 @@ module.exports = (options) => {
       new HtmlWebpackPlugin({
         template: './src/index.html'
       }),
+      new BundleTracker({filename: './webpack-stats.json'}),
       new Webpack.ProvidePlugin({
         riot: 'riot'
       })
@@ -54,10 +56,10 @@ module.exports = (options) => {
         }
       }]
     }
-    };
+    }
 
   if (options.isProduction) {
-    webpackConfig.entry = ['./src/scripts/index'];
+    webpackConfig.entry = ['./src/index']
 
     webpackConfig.plugins.push(
       new Webpack.optimize.UglifyJsPlugin({
@@ -66,7 +68,7 @@ module.exports = (options) => {
         }
       }),
       ExtractSASS
-    );
+    )
 
     webpackConfig.module.rules.push({
       test: /\.scss$/i,
@@ -76,12 +78,12 @@ module.exports = (options) => {
         minimize: true
        }
       }, 'sass-loader'])
-    });
+    })
 
   } else {
     webpackConfig.plugins.push(
       new Webpack.HotModuleReplacementPlugin()
-    );
+    )
 
     webpackConfig.module.rules.push({
       test: /\.scss$/i,
@@ -97,16 +99,16 @@ module.exports = (options) => {
         }
       },
       exclude: /node_modules/
-    });
+    })
 
     webpackConfig.devServer = {
       contentBase: dest,
       hot: true,
       port: options.port,
       inline: true
-    };
+    }
   }
 
-  return webpackConfig;
+  return webpackConfig
 
-};
+}

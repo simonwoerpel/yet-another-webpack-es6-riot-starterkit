@@ -5,7 +5,7 @@ if (module.hot) {
 }
 
 // import 'babel-polyfill'
-import '../styles/index.scss'
+import './styles/index.scss'
 
-import '../components/hello-world.tag'
+import './components/hello-world.tag'
 riot.mount('*')

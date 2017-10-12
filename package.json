@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A light foundation for your next frontend project based on webpack.",
   "scripts": {
-    "build": "webpack --config webpack-prod.config.js --colors",
+    "build": "rm -rf ./docs/bundle-*; webpack --config webpack-prod.config.js --colors",
     "dev": "webpack-dev-server --config webpack-dev.config.js --watch --colors"
   },
   "repository": {
@@ -57,6 +57,7 @@
     "style-loader": "^0.19.0",
     "topojson": "^3.0.2",
     "webpack": "^3.7.1",
+    "webpack-bundle-tracker": "^0.2.0",
     "webpack-dev-server": "^2.9.1"
   },
   "dependencies": {
