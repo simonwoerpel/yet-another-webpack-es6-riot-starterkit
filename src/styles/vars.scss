@@ -1,0 +1,49 @@
+$cssNamespace: 'my-prefix';
+
+// dimensions
+$screen-sm: 768px;
+$screen-md: 992px;
+$screen-lg: 1200px;
+
+// colors
+$black: #1a1a1a;
+$white: #ffffff;
+$white-transp: rgba(255, 255, 255, .9);
+
+$beige: darken(#cfd3bb, 5%);
+$beige-lighter: lighten($beige, 10%);
+$beige-light: lighten($beige, 5%);
+$beige-dark: darken($beige, 10%);
+$beige-darker: darken($beige, 40%);
+
+$blue: #16a3b7;
+$blue-lighter: lighten($blue, 30%);
+$blue-light: lighten($blue, 10%);
+$blue-dark: darken($blue, 10%);
+$blue-darker: darken($blue, 30%);
+
+$green: #78b637;
+$green-light: lighten($green, 10%);
+$green-dark: darken($green, 10%);
+
+$purple: #ff6166;
+$purple-light: #ff7a7f;
+$purple-lighter: lighten($purple-light, 15%);
+$purple-dark: #c81455;
+$purple-darker: darken($purple-dark, 15%);
+
+$gray-lighter: #f5f5f5;
+$gray-light: #dadada;
+$gray: #9c9c9c;
+$gray-dark: #555555;
+$gray-darker: #4d4d4d;
+
+$box-shadow: 0px 0px 2px $gray;
+
+// font
+// FIXME
+$font-neuzeit: 'Neuzeit','Neuzeit Grotesk','Helvetica','Arial',sans-serif;
+$font-neuzeit-cond: 'Neuzeit-Condensed','Neuzeit Grotesk Cond','Helvetica','Arial',sans-serif;
+$font-serif: Georgia,Times,'Times New Roman',serif;
+
+$transition-duration: .3s;

@@ -1,0 +1,16 @@
+@include cssPrefix('my-interactive-viz') {
+
+  display: block;
+  width: 100%;
+  position: relative;
+  background: $gray-light;
+
+  &__msg {
+    padding: 10px;
+
+    &--my-modifier {
+      color: $purple-dark;
+    }
+  }
+
+}

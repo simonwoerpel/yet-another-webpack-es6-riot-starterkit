@@ -1,5 +1,8 @@
-$body-color: blue;
+@import './vars.scss';
+@import './mixins.scss';
 
-body {
-  color: $body-color;
-}  
+// base components alignement
+@import './components.scss';
+
+// concrete components
+@import '../components/bar-chart/bar-chart.scss';
